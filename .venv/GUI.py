@@ -6,33 +6,38 @@ class GUI:
     def __init__(self):
         self.fileManager = FileManager()
         self.taskManager = TaskManager(self.fileManager.loadList())
-        print("Evoblast To Do List")
+        print(" _____      ______        _     _     _   ")
+        print("|_   _|     |  _  \      | |   (_)   | |  ")
+        print("  | | ___   | | | |___   | |    _ ___| |_ ")
+        print("  | |/ _ \  | | | / _ \  | |   | / __| __|")
+        print("  | | (_) | | |/ / (_) | | |___| \__ \ |_")
+        print("  \_/\___/  |___/ \___/  \_____/_|___/\__|")
         self.taskManager.printList()
-        print("Type Help to check commands")
+        print("Type help to check commands")
 
     def runLoop(self):
         exitVal = False
         while(not exitVal):
             command = input("Input command:")
             match command:
-                case "AddTask":
+                case "addTask":
                     name = input("Name of the task:")
                     self.taskManager.addTask(name)
-                case "RemoveTask":
+                case "removeTask":
                     name = input("Name of the task:")
                     self.taskManager.removeTask(name)
-                case "PrintList":
+                case "show":
                     self.taskManager.printList()
-                case "CheckTask":
+                case "checkTask":
                     name = input("Name of the task:")
                     self.taskManager.checkTask(name)
-                case "RemoveChecked":
+                case "removeChecked":
                     self.taskManager.removeChecked()
-                case "Reset":
+                case "reset":
                     self.taskManager.reset()
-                case "Help":
-                    print("Comands:\n1.AddTask\n2.RemoveTask\n3.PrintList\n4.CheckTask\n5.RemoveChecked\n6.Reset\n7.Help\n8.Exit")
-                case "Exit":
+                case "help":
+                    print("Comands:\n1.addTask\n2.removeTask\n3.show\n4.checkTask\n5.removeChecked\n6.reset\n7.help\n8.exit")
+                case "exit":
                     self.fileManager.saveList(self.taskManager.list)
                     exitVal = True
                 case _:

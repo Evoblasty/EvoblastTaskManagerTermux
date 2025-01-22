@@ -43,7 +43,6 @@ class TaskManager:
         numerator = 1
         print("")
         for t in self.list:
-            t.print()
             print(str(numerator)+". "+t.toBasicString())
             numerator = numerator + 1
         print("")
