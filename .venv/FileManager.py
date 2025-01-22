@@ -1,4 +1,5 @@
 import csv
+import os
 from Task import Task
 
 class FileManager:
@@ -11,20 +12,25 @@ class FileManager:
 
     def loadList(self):
         result = []
-        try:
-            with open("storageFile", mode="r") as file:
-                reader = csv.reader(file, delimiter=';', quotechar='"', quoting=csv.QUOTE_MINIMAL)
-                for row in reader:
-                    task = Task(row[0],row[1])
-                    result.append(task)
-                return result
-        except FileNotFoundError:
-            print(f"Error: El archivo '{ruta_csv}' no fue encontrado.")
-            return []
-        except PermissionError:
-            print(f"Error: No tienes permisos para leer el archivo '{ruta_csv}'.")
-            return []
-        except Exception as e:
-            print(f"Se produjo un error inesperado: {e}")
-            return []
+        if not os.path.exists("storageFile"):
+            with open("storageFile", mode='w', newline='') as file:
+                pass
+            print("storageFile has been created as an empty file.")
+        else:
+            try:
+                with open("storageFile", mode="r") as file:
+                    reader = csv.reader(file, delimiter=';', quotechar='"', quoting=csv.QUOTE_MINIMAL)
+                    for row in reader:
+                        task = Task(row[0],row[1])
+                        result.append(task)
+                    return result
+            except FileNotFoundError:
+                print(f"Error: El archivo '{ruta_csv}' no fue encontrado.")
+                return []
+            except PermissionError:
+                print(f"Error: No tienes permisos para leer el archivo '{ruta_csv}'.")
+                return []
+            except Exception as e:
+                print(f"Se produjo un error inesperado: {e}")
+        return []
 
