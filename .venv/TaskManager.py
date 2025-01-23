@@ -1,4 +1,5 @@
-from itertools import filterfalse
+from fcntl import FASYNC
+from itertools import filterfalse, chain
 from operator import contains
 from Task import Task
 from FileManager import FileManager
@@ -15,8 +16,10 @@ class TaskManager:
             task = Task(name,status)
             self.list.append(task)
             print("Task added succesfully")
+            return True
         else:
             print("Error adding task")
+            return False
 
     def isInList(self,key):
         result = False
@@ -36,15 +39,22 @@ class TaskManager:
             task = self.get(name)
             self.list.remove(task)
             print("Task removed successfully")
+            return True
         else:
             print("Error deleting task")
+            return False
 
     def printList(self):
         numerator = 1
+        undone = 0
         print("")
         for t in self.list:
             print(str(numerator)+". "+t.toBasicString())
             numerator = numerator + 1
+            if t.status is False:
+                undone = undone +1
+        print("")
+        print(str(undone)+" task remaining")
         print("")
 
     def checkTask(self,name):
@@ -52,19 +62,26 @@ class TaskManager:
             task = self.get(name)
             task.check()
             print("Task checked")
+            return True
         else:
             print("Error checking task")
+            return False
 
     def removeChecked(self):
+        changes = 0
         for t in reversed(self.list):
             if t.status is True:
                 self.list.remove(t)
                 print("Task "+t.name+" removed correctly")
+                changes = changes+1
+        return changes
 
 
     def reset(self):
+        changes = len(self.list)
         self.list = []
         print("List cleared")
+        return changes
 
 
 

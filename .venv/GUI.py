@@ -17,29 +17,63 @@ class GUI:
 
     def runLoop(self):
         exitVal = False
+        changes = 0
         while(not exitVal):
             command = input("Input command:")
             match command:
                 case "addTask":
                     name = input("Name of the task:")
-                    self.taskManager.addTask(name)
+                    if self.taskManager.addTask(name):
+                        changes = changes+1
                 case "removeTask":
                     name = input("Name of the task:")
-                    self.taskManager.removeTask(name)
+                    if self.taskManager.removeTask(name):
+                        changes = changes+1
                 case "show":
                     self.taskManager.printList()
                 case "checkTask":
                     name = input("Name of the task:")
-                    self.taskManager.checkTask(name)
+                    if self.taskManager.checkTask(name):
+                        changes = changes+1
                 case "removeChecked":
-                    self.taskManager.removeChecked()
+                    changes = changes + self.taskManager.removeChecked()
                 case "reset":
-                    self.taskManager.reset()
-                case "help":
-                    print("Comands:\n1.addTask\n2.removeTask\n3.show\n4.checkTask\n5.removeChecked\n6.reset\n7.help\n8.exit")
-                case "exit":
+                    loopBreaker = False
+                    while loopBreaker==False:
+                        confirmation = input("Are you sure (y/n):")
+                        if confirmation == "y":
+                            changes = changes + self.taskManager.reset()
+                            loopBreaker = True
+                        elif confirmation == "n":
+                            loopBreaker = True
+                            print("List not deleted")
+                        else:
+                            print("Invalid input")
+                case "save":
                     self.fileManager.saveList(self.taskManager.list)
-                    exitVal = True
+                    print(str(changes)+" saved correctly")
+                    changes = 0
+                case "help":
+                    print("Comands:\n1.addTask\n2.removeTask\n3.show\n4.checkTask\n5.removeChecked\n6.reset\n7.save\n8.help\n9.exit")
+                case "exit":
+                    if changes > 0:
+                        loopBreaker = False
+                        while loopBreaker == False:
+                            saveChanges = input("There are " + str(changes) + " unsaved changes, would you like save them?(y/n):")
+                            if saveChanges == "y":
+                                self.fileManager.saveList(self.taskManager.list)
+                                print(str(changes) + " saved correctly")
+                                changes = 0
+                                loopBreaker = True
+                                exitVal = True
+                            elif saveChanges == "n":
+                                loopBreaker = True
+                                print(str(changes)+" not saved")
+                                exitVal = True
+                            else:
+                                print("Invalid input")
+                    else:
+                        exitVal = True
                 case _:
                     print("Command not found")
 '''
