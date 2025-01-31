@@ -19,7 +19,7 @@ class GUI:
     def runLoop(self):
         title = "Python Script Notification"
         message = "Hello from Termux!"
-        os.system(f'termux-notification --title "{title}" --content "{message}"')
+        os.system(f'termux-notification --title "{title}" --content "{message}"&')
         exitVal = False
         changes = 0
         while(not exitVal):
