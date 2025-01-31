@@ -1,8 +1,6 @@
 from TaskManager import TaskManager
 from FileManager import FileManager
-from plyer import notification
-import warnings
-warnings.filterwarnings("ignore", category=UserWarning)
+import os
 
 class GUI:
 
@@ -19,7 +17,9 @@ class GUI:
         print("Type help to check commands")
 
     def runLoop(self):
-        self.notify()
+        title = "Python Script Notification"
+        message = "Hello from Termux!"
+        os.system(f'termux-notification --title "{title}" --content "{message}"')
         exitVal = False
         changes = 0
         while(not exitVal):
