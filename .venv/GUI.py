@@ -1,6 +1,5 @@
 from TaskManager import TaskManager
 from FileManager import FileManager
-import os
 
 class GUI:
 
@@ -17,17 +16,14 @@ class GUI:
         print("Type help to check commands")
 
     def runLoop(self):
-        title = "Python Script Notification"
-        message = "Hello from Termux!"
-        os.system(f'termux-notification --title "{title}" --content "{message}"&')
         exitVal = False
         changes = 0
+        testCommand = addTask()
         while(not exitVal):
             command = input("Input command:")
             match command:
                 case "addTask":
-                    name = input("Name of the task:")
-                    if self.taskManager.addTask(name):
+                    if testCommand.apply():
                         changes = changes+1
                 case "removeTask":
                     name = input("Name of the task:")

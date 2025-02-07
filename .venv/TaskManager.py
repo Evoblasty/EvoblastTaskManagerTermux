@@ -16,10 +16,10 @@ class TaskManager:
             task = Task(name,status)
             self.list.append(task)
             print("Task added succesfully")
-            return True
+            return 1
         else:
             print("Error adding task")
-            return False
+            return 0
 
     def isInList(self,key):
         result = False
@@ -39,33 +39,38 @@ class TaskManager:
             task = self.get(name)
             self.list.remove(task)
             print("Task removed successfully")
-            return True
+            return 1
         else:
             print("Error deleting task")
-            return False
+            return 0
 
     def printList(self):
-        numerator = 1
-        undone = 0
-        print("")
-        for t in self.list:
-            print(str(numerator)+". "+t.toBasicString())
-            numerator = numerator + 1
-            if t.status is False:
-                undone = undone +1
-        print("")
-        print(str(undone)+" task remaining")
-        print("")
+        if len(self.list) == 0:
+            print("")
+            print("The list is empty")
+            print("")
+        else:
+            numerator = 1
+            undone = 0
+            print("")
+            for t in self.list:
+                print(str(numerator)+". "+t.toBasicString())
+                numerator = numerator + 1
+                if t.status is False:
+                    undone = undone +1
+            print("")
+            print(str(undone)+" task remaining")
+            print("")
 
     def checkTask(self,name):
         if self.isInList(name):
             task = self.get(name)
             task.check()
             print("Task checked")
-            return True
+            return 1
         else:
             print("Error checking task")
-            return False
+            return 0
 
     def removeChecked(self):
         changes = 0
