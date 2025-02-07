@@ -7,8 +7,6 @@ from Menu import *
 import sys
 import os
 
-from termux.Notification import remove
-
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 from Command.TaskerCommands import *
 from Command.MenuCommands import *
