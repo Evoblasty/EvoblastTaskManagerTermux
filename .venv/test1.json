@@ -1,0 +1,46 @@
+[
+    {
+        "date": "2025-02-23",
+        "morning": {
+            "w": true,
+            "purpose": "bad",
+            "virtue": "Courage"
+        },
+        "evening": {
+            "w": false,
+            "action": "",
+            "reaction": "",
+            "version": ""
+        },
+        "night": {
+            "w": true,
+            "goods": "yes",
+            "better": "maybe",
+            "learning": "not",
+            "virtue": "No",
+            "death": "No"
+        }
+    },
+    {
+        "date": "2025-02-25",
+        "morning": {
+            "w": true,
+            "purpose": "hate",
+            "virtue": "Wisdom"
+        },
+        "evening": {
+            "w": true,
+            "action": "Reason",
+            "reaction": "Yes",
+            "version": "Yes"
+        },
+        "night": {
+            "w": false,
+            "goods": "",
+            "better": "",
+            "learning": "",
+            "virtue": "",
+            "death": ""
+        }
+    }
+]
