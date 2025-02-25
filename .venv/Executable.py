@@ -19,7 +19,6 @@ prog.runLoop()
 '''
 fileManager = FileManager()
 day = fileManager.loadDaily()
-print(day.morning.purpose)
 showstuff = showToday(day)
 morning = fillMorning(day.morning)
 evening = fillEvening(day.evening)
