@@ -1,3 +1,6 @@
+from operator import index
+
+
 class IOManager:
     _instance = None
 
@@ -19,7 +22,7 @@ class IOManager:
         result = False
         finishCondition = False
         while not finishCondition:
-            userInput = input(msg+" y/n:")
+            userInput = input(msg+" (y/n):")
             if userInput == "y":
                 result = True
                 finishCondition = True
@@ -28,3 +31,17 @@ class IOManager:
             else:
                 print("Error: Please enter the character y or n")
         return result
+
+    def readOption(self,msg,list):
+        options = ", ".join(list)
+        userInput = ""
+        finishCondition = False
+        result = 0
+        while not finishCondition:
+            userInput = input(msg + "(" + options + "):")
+            if userInput in list:
+                result = list.index(userInput)
+                finishCondition = True
+            else:
+                print("Error: Please enter one of the options")
+        return result+1

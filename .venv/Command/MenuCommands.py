@@ -7,3 +7,10 @@ class openToDoList(CommandInterface):
 
     def apply(self):
         self.tasker.executionLoop()
+
+class openDiary(CommandInterface):
+    def __init__(self,diary):
+        self.diary = diary
+
+    def apply(self):
+        self.diary.executionLoop()

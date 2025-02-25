@@ -14,22 +14,23 @@ class Menu:
         print(self.GreetMsg)
         while not exitVal:
             wanted = self.IOmanager.readInput("Command:")
-            if self.checkForInt(wanted):
-                if int(wanted) > 0 and int(wanted) <= len(self.commands):
-                    self.commands[list(self.commands.keys())[int(wanted)-1]].apply()
-                elif int(wanted)==len(self.commands)+1:
-                    exitVal = True
+            if wanted is not None:
+                if self.checkForInt(wanted):
+                    if int(wanted) > 0 and int(wanted) <= len(self.commands):
+                        self.commands[list(self.commands.keys())[int(wanted)-1]].apply()
+                    elif int(wanted)==len(self.commands)+1:
+                        exitVal = True
+                    else:
+                        print("Error: Command out of bounds")
                 else:
-                    print("Error: Command out of bounds")
-            else:
-                if wanted in self.commands:
-                    self.commands[wanted].apply()
-                elif wanted == "exit":
-                    exitVal = True
-                elif wanted == "help":
-                    self.showList()
-                else:
-                    print("Error: Unknown command. Try help to check command list")
+                    if wanted in self.commands:
+                        self.commands[wanted].apply()
+                    elif wanted == "exit":
+                        exitVal = True
+                    elif wanted == "help":
+                        self.showList()
+                    else:
+                        print("Error: Unknown command. Try help to check command list")
         print("Closed "+self.name)
 
 
@@ -63,30 +64,31 @@ class MenuSave(Menu):
         exitVal = False
         while not exitVal:
             wanted = self.IOmanager.readInput("Command:")
-            if self.checkForInt(wanted):
-                if int(wanted) > 0 and int(wanted) <= len(self.commands):
-                    self.changes = self.changes + self.commands[list(self.commands.keys())[int(wanted) - 1]].apply()
-                    if int(wanted)==len(self.commands):
-                        self.changes = 0
-                elif int(wanted) == len(self.commands)+1:
-                    if self.changes > 0:
-                        self.unsavedChanges()
-                    exitVal = True
+            if wanted is not None:
+                if self.checkForInt(wanted):
+                    if int(wanted) > 0 and int(wanted) <= len(self.commands):
+                        self.changes = self.changes + self.commands[list(self.commands.keys())[int(wanted) - 1]].apply()
+                        if int(wanted)==len(self.commands):
+                            self.changes = 0
+                    elif int(wanted) == len(self.commands)+1:
+                        if self.changes > 0:
+                            self.unsavedChanges()
+                        exitVal = True
+                    else:
+                        print("Error: Command out of bounds")
                 else:
-                    print("Error: Command out of bounds")
-            else:
-                if wanted in self.commands:
-                    self.changes = self.changes + self.commands[wanted].apply()
-                    if wanted == "save":
-                        self.changes = 0
-                elif wanted == "exit":
-                    if self.changes > 0:
-                        self.unsavedChanges()
-                    exitVal = True
-                elif wanted == "help":
-                    self.showList()
-                else:
-                    print("Error: Unknown command. Try help to check command list")
+                    if wanted in self.commands:
+                        self.changes = self.changes + self.commands[wanted].apply()
+                        if wanted == "save":
+                            self.changes = 0
+                    elif wanted == "exit":
+                        if self.changes > 0:
+                            self.unsavedChanges()
+                        exitVal = True
+                    elif wanted == "help":
+                        self.showList()
+                    else:
+                        print("Error: Unknown command. Try help to check command list")
         print("Closed "+self.name)
 
 
