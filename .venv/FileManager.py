@@ -67,6 +67,11 @@ class FileManager:
         print("JSON file with nested object saved successfully!")
 
     def loadDaily(self):
+        if not os.path.exists("test1.json"):
+            with open("test1.json", "w") as json_file:
+                json.dump([], json_file, indent=4)  # Crear un JSON vacío
+
+            return Day()
         with open("test1.json", "r") as json_file:
             json_data = json_file.read()
         try:
